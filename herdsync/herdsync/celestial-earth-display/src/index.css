@@ -1,0 +1,295 @@
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;500;600;700;800;900&family=VT323&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Cosmic Watch Design System - Deep Space Theme */
+
+@layer base {
+  :root {
+    /* Deep space background colors */
+    --background: 216 50% 6%;
+    --foreground: 210 40% 98%;
+
+    /* Cards with glassmorphism effect */
+    --card: 216 50% 8%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 216 50% 10%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Primary - Cosmic Emerald Green */
+    --primary: 158 85% 43%;
+    --primary-foreground: 216 50% 6%;
+
+    /* Secondary - Deep Navy */
+    --secondary: 216 50% 15%;
+    --secondary-foreground: 210 40% 98%;
+
+    /* Muted - Space Gray */
+    --muted: 216 30% 20%;
+    --muted-foreground: 210 20% 60%;
+
+    /* Accent - Bright Teal */
+    --accent: 158 75% 55%;
+    --accent-foreground: 216 50% 6%;
+
+    /* Destructive - Alert Red */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Warning - Hazard Orange */
+    --warning: 25 95% 53%;
+    --warning-foreground: 216 50% 6%;
+
+    /* Safe - Green */
+    --safe: 142 76% 36%;
+    --safe-foreground: 210 40% 98%;
+
+    --border: 216 30% 18%;
+    --input: 216 30% 18%;
+    --ring: 158 85% 43%;
+
+    --radius: 0.75rem;
+
+    /* Space gradients */
+    --gradient-space: linear-gradient(180deg, hsl(216 50% 3%) 0%, hsl(216 50% 8%) 50%, hsl(220 40% 12%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(216 50% 12% / 0.8) 0%, hsl(216 50% 6% / 0.6) 100%);
+    --gradient-glow: radial-gradient(ellipse at center, hsl(158 85% 43% / 0.15) 0%, transparent 70%);
+    --gradient-earth-glow: radial-gradient(ellipse at center, hsl(200 80% 50% / 0.3) 0%, hsl(158 85% 43% / 0.1) 40%, transparent 70%);
+    
+    /* Atmospheric glow for Earth */
+    --earth-atmosphere: 0 0 60px 20px hsl(200 80% 50% / 0.3), 0 0 120px 40px hsl(158 85% 43% / 0.15);
+    
+    /* Shadows */
+    --shadow-glow: 0 0 20px hsl(158 85% 43% / 0.3);
+    --shadow-card: 0 4px 30px hsl(0 0% 0% / 0.5);
+
+    /* Sidebar */
+    --sidebar-background: 216 50% 5%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 158 85% 43%;
+    --sidebar-primary-foreground: 216 50% 6%;
+    --sidebar-accent: 216 50% 12%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 216 30% 15%;
+    --sidebar-ring: 158 85% 43%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--gradient-space);
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Big Shoulders Display', sans-serif;
+    letter-spacing: 0.02em;
+  }
+
+  .font-display {
+    font-family: 'Big Shoulders Display', sans-serif;
+  }
+
+  .font-mono-retro {
+    font-family: 'VT323', monospace;
+  }
+}
+
+@layer components {
+  /* Glassmorphism card */
+  .glass-card {
+    @apply backdrop-blur-xl border border-border/50;
+    background: var(--gradient-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Glowing border effect */
+  .glow-border {
+    @apply relative;
+  }
+  
+  .glow-border::before {
+    content: '';
+    @apply absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300;
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.5) 0%, hsl(var(--accent) / 0.3) 100%);
+    filter: blur(8px);
+    z-index: -1;
+  }
+  
+  .glow-border:hover::before {
+    @apply opacity-100;
+  }
+
+  /* Asteroid risk levels */
+  .risk-critical {
+    @apply text-destructive border-destructive/50;
+    text-shadow: 0 0 10px hsl(var(--destructive) / 0.5);
+  }
+
+  .risk-high {
+    @apply border-warning/50;
+    color: hsl(var(--warning));
+    text-shadow: 0 0 10px hsl(var(--warning) / 0.5);
+  }
+
+  .risk-moderate {
+    @apply text-accent border-accent/50;
+    text-shadow: 0 0 10px hsl(var(--accent) / 0.5);
+  }
+
+  .risk-low {
+    @apply border-safe/50;
+    color: hsl(var(--safe));
+    text-shadow: 0 0 10px hsl(var(--safe) / 0.5);
+  }
+
+  /* Pulsing animation for hazardous items */
+  .pulse-hazard {
+    animation: pulse-hazard 2s ease-in-out infinite;
+  }
+
+  /* Stats card glow */
+  .stat-glow {
+    @apply relative overflow-hidden;
+  }
+  
+  .stat-glow::after {
+    content: '';
+    @apply absolute inset-0 opacity-20;
+    background: var(--gradient-glow);
+  }
+
+  /* Scrollbar styling */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-secondary/30 rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-primary/50 rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/70;
+  }
+}
+
+@layer utilities {
+  /* Text glow effects */
+  .text-glow {
+    text-shadow: 0 0 20px hsl(var(--primary) / 0.5), 0 0 40px hsl(var(--primary) / 0.3);
+  }
+
+  .text-glow-accent {
+    text-shadow: 0 0 20px hsl(var(--accent) / 0.5), 0 0 40px hsl(var(--accent) / 0.3);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+  }
+
+  /* Floating animation */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Slow spin for Earth */
+  .animate-spin-slow {
+    animation: spin 60s linear infinite;
+  }
+
+  /* Fade in up animation */
+  .animate-fade-in-up {
+    animation: fadeInUp 0.5s ease-out forwards;
+  }
+
+  /* Stagger children animations */
+  .stagger-children > * {
+    @apply animate-fade-in-up;
+  }
+  
+  .stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+  .stagger-children > *:nth-child(2) { animation-delay: 100ms; }
+  .stagger-children > *:nth-child(3) { animation-delay: 200ms; }
+  .stagger-children > *:nth-child(4) { animation-delay: 300ms; }
+  .stagger-children > *:nth-child(5) { animation-delay: 400ms; }
+}
+
+/* Keyframes */
+@keyframes pulse-hazard {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 hsl(var(--destructive) / 0.4);
+  }
+  50% {
+    opacity: 0.85;
+    box-shadow: 0 0 20px 10px hsl(var(--destructive) / 0.2);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Stars background */
+.stars-bg {
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, hsl(0 0% 100% / 0.8), transparent),
+    radial-gradient(2px 2px at 40px 70px, hsl(0 0% 100% / 0.6), transparent),
+    radial-gradient(1px 1px at 90px 40px, hsl(0 0% 100% / 0.9), transparent),
+    radial-gradient(2px 2px at 130px 80px, hsl(0 0% 100% / 0.5), transparent),
+    radial-gradient(1px 1px at 160px 120px, hsl(0 0% 100% / 0.7), transparent),
+    radial-gradient(2px 2px at 200px 50px, hsl(0 0% 100% / 0.6), transparent),
+    radial-gradient(1px 1px at 250px 100px, hsl(0 0% 100% / 0.8), transparent),
+    radial-gradient(2px 2px at 300px 70px, hsl(0 0% 100% / 0.5), transparent);
+  background-size: 350px 200px;
+  animation: twinkle 5s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
+}

@@ -1,0 +1,4 @@
+project_id = "cbsemmcwdqubuqneuccp"
+
+[functions.asteroid-ai]
+verify_jwt = false
